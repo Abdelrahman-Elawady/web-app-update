@@ -41,11 +41,11 @@ document.getElementById('connect').addEventListener('click', async () => {
     }
 });
 
-async function sendDefaultMessage() {
+function sendDefaultMessage() {
     const message = 'Available';
     const encoder = new TextEncoder();
     const data = encoder.encode(message);
-    await characteristic.writeValue(data);
+    characteristic.writeValue(data);
 }
 
 function handleCharacteristicValueChanged(event) {
