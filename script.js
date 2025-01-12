@@ -37,12 +37,14 @@ document.getElementById('connect').addEventListener('click', async () => {
         document.getElementById('status').textContent = 'Disconnected';
         document.getElementById('status').style.color = 'red';
     }
-    // Send the default message "Available" 
-    await document.getElementById('availableOnConnection').click();
 });
 
+async function availableConnection() {
+    // Send the default message "Available" 
+    await document.getElementById('availableOnConnection').click();
+}
 
-
+availableConnection();
 
 function handleCharacteristicValueChanged(event) {
     const value = new TextDecoder().decode(event.target.value);
