@@ -41,7 +41,7 @@ async function connectDevice() {
         // Attempt to reconnect
         setTimeout(connectDevice, 1000);
     }
-});
+};
 
 document.getElementById('connect').addEventListener('click', async () => {
     device = await navigator.bluetooth.requestDevice({
