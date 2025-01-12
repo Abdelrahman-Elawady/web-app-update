@@ -1,7 +1,6 @@
 let device;
 let characteristic;
 let notifyCharacteristic;
-let availableButton = document.getElementById('availabelOnConnection');
 
 document.getElementById('connect').addEventListener('click', async () => {
     try {
@@ -30,7 +29,7 @@ document.getElementById('connect').addEventListener('click', async () => {
         document.getElementById('availableOnConnection').disabled = false;
 
         // Send the default message "Available" 
-        await availableButton.click();
+        document.getElementById('availabelOnConnection').click();
         
         // Start notifications
         await notifyCharacteristic.startNotifications();
