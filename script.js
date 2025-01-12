@@ -26,11 +26,12 @@ document.getElementById('connect').addEventListener('click', async () => {
         document.getElementById('brightnessSlider').disabled = false;
         document.getElementById('speedSlider').disabled = false;
         document.getElementById('colorPicker').disabled = false;
-        document.getElementById('availableOnConnection').disabled = false;
 
         // Start notifications
         await notifyCharacteristic.startNotifications();
         notifyCharacteristic.addEventListener('characteristicvaluechanged', handleCharacteristicValueChanged);
+
+        await sendAvailableCommand();
         
     } catch (error) {
         console.error('Connection failed', error);
@@ -39,11 +40,15 @@ document.getElementById('connect').addEventListener('click', async () => {
     }
 });
 
-async function availableConnection() {
-    // Send the default message "Available" 
-    await document.getElementById('availableOnConnection').click();
+async function sendAvailableCommand() {
+    try {
+        const encoder = new TextEncoder();
+        const data = encoder.encode('Available');
+        await characteristic.writeValue(data);
+    } catch (error) {
+        console.error('Failed to send Available command', error);
+    }
 }
-
 availableConnection();
 
 function handleCharacteristicValueChanged(event) {
@@ -117,11 +122,5 @@ document.getElementById('colorPicker').addEventListener('input', async (event) =
     const command = `color:${r},${g},${b}`;
     const encoder = new TextEncoder();
     const data = encoder.encode(command);
-    await characteristic.writeValue(data);
-});
-
-document.getElementById('availableOnConnection').addEventListener('click', async () => {
-    const encoder = new TextEncoder();
-    const data = encoder.encode('Available');
     await characteristic.writeValue(data);
 });
