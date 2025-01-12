@@ -37,11 +37,13 @@ document.getElementById('connect').addEventListener('click', async () => {
         } else {
             console.error('Device is not connected');
         }
-        
+
     } catch (error) {
         console.error('Connection failed', error);
         document.getElementById('status').textContent = 'Disconnected';
         document.getElementById('status').style.color = 'red';
+        // Attempt to reconnect
+        setTimeout(connectDevice, 1000);
     }
 });
 
