@@ -46,7 +46,7 @@ document.getElementById('connect').addEventListener('click', async () => {
         acceptAllDevices: true,
         optionalServices: ['8cdd366e-7eb4-442d-973f-61e2fd4b56f0']
     });
-    connectDevice();
+    await connectDevice();
 });
 
 function handleCharacteristicValueChanged(event) {
