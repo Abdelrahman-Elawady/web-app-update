@@ -26,10 +26,9 @@ document.getElementById('connect').addEventListener('click', async () => {
         document.getElementById('brightnessSlider').disabled = false;
         document.getElementById('speedSlider').disabled = false;
         document.getElementById('colorPicker').disabled = false;
-        document.getElementById('availableOnConnection').disabled = false;
 
         // Send the default message "Available" 
-        document.getElementById('availabelOnConnection').click();
+        await document.getElementById('availabelOnConnection').click();
         
         // Start notifications
         await notifyCharacteristic.startNotifications();
