@@ -32,7 +32,7 @@ document.getElementById('connect').addEventListener('click', async () => {
         notifyCharacteristic.addEventListener('characteristicvaluechanged', handleCharacteristicValueChanged);
 
         await sendAvailableCommand();
-        
+
     } catch (error) {
         console.error('Connection failed', error);
         document.getElementById('status').textContent = 'Disconnected';
@@ -49,7 +49,6 @@ async function sendAvailableCommand() {
         console.error('Failed to send Available command', error);
     }
 }
-availableConnection();
 
 function handleCharacteristicValueChanged(event) {
     const value = new TextDecoder().decode(event.target.value);
