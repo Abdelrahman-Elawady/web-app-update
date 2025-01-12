@@ -35,11 +35,9 @@ async function connectDevice() {
         }
 
     } catch (error) {
-        console.error('Connection failed', error);
+        console.error('Connection failed!!!', error);
         document.getElementById('status').textContent = 'Disconnected';
         document.getElementById('status').style.color = 'red';
-        // Attempt to reconnect
-        setTimeout(connectDevice, 1000);
     }
 };
 
