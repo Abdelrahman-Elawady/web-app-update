@@ -26,9 +26,7 @@ document.getElementById('connect').addEventListener('click', async () => {
         document.getElementById('brightnessSlider').disabled = false;
         document.getElementById('speedSlider').disabled = false;
         document.getElementById('colorPicker').disabled = false;
-
-        // Send the default message "Available" 
-        await document.getElementById('availabelOnConnection').click();
+        document.getElementById('availabelOnConnection').disabled = false;
         
         // Start notifications
         await notifyCharacteristic.startNotifications();
@@ -40,6 +38,10 @@ document.getElementById('connect').addEventListener('click', async () => {
         document.getElementById('status').style.color = 'red';
     }
 });
+
+
+// Send the default message "Available" 
+document.getElementById('availabelOnConnection').click();
 
 function handleCharacteristicValueChanged(event) {
     const value = new TextDecoder().decode(event.target.value);
