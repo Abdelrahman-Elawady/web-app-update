@@ -1,6 +1,7 @@
 let device;
 let characteristic;
 let notifyCharacteristic;
+let availableButton = document.getElementById('availabelOnConnection');
 
 document.getElementById('connect').addEventListener('click', async () => {
     try {
@@ -26,9 +27,10 @@ document.getElementById('connect').addEventListener('click', async () => {
         document.getElementById('brightnessSlider').disabled = false;
         document.getElementById('speedSlider').disabled = false;
         document.getElementById('colorPicker').disabled = false;
+        document.getElementById('availableOnConnection').disabled = false;
 
         // Send the default message "Available" 
-        await sendDefaultMessage();
+        await availableButton.click();
         
         // Start notifications
         await notifyCharacteristic.startNotifications();
@@ -40,13 +42,6 @@ document.getElementById('connect').addEventListener('click', async () => {
         document.getElementById('status').style.color = 'red';
     }
 });
-
-function sendDefaultMessage() {
-    const message = 'Available';
-    const encoder = new TextEncoder();
-    const data = encoder.encode(message);
-    characteristic.writeValue(data);
-}
 
 function handleCharacteristicValueChanged(event) {
     const value = new TextDecoder().decode(event.target.value);
@@ -119,5 +114,11 @@ document.getElementById('colorPicker').addEventListener('input', async (event) =
     const command = `color:${r},${g},${b}`;
     const encoder = new TextEncoder();
     const data = encoder.encode(command);
+    await characteristic.writeValue(data);
+});
+
+document.getElementById('availableOnConnection').addEventListener('click', async () => {
+    const encoder = new TextEncoder();
+    const data = encoder.encode('Available');
     await characteristic.writeValue(data);
 });

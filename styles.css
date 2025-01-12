@@ -42,7 +42,10 @@ button {
     font-size: 16px;  
   }
   
-#reset {
+#availableOnConnection {
+    display: none;
+}
+  #reset {
     background-color: #ff5353;
     color: white;
 }
