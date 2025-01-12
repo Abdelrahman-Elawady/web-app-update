@@ -27,7 +27,7 @@ document.getElementById('connect').addEventListener('click', async () => {
         document.getElementById('speedSlider').disabled = false;
         document.getElementById('colorPicker').disabled = false;
         document.getElementById('availableOnConnection').disabled = false;
-        
+
         // Start notifications
         await notifyCharacteristic.startNotifications();
         notifyCharacteristic.addEventListener('characteristicvaluechanged', handleCharacteristicValueChanged);
@@ -37,11 +37,12 @@ document.getElementById('connect').addEventListener('click', async () => {
         document.getElementById('status').textContent = 'Disconnected';
         document.getElementById('status').style.color = 'red';
     }
+    // Send the default message "Available" 
+    await document.getElementById('availableOnConnection').click();
 });
 
 
-// Send the default message "Available" 
-document.getElementById('availableOnConnection').click();
+
 
 function handleCharacteristicValueChanged(event) {
     const value = new TextDecoder().decode(event.target.value);
