@@ -2,12 +2,8 @@ let device;
 let characteristic;
 let notifyCharacteristic;
 
-document.getElementById('connect').addEventListener('click', async () => {
+async function connectDevice() {
     try {
-        device = await navigator.bluetooth.requestDevice({
-            acceptAllDevices: true,
-            optionalServices: ['8cdd366e-7eb4-442d-973f-61e2fd4b56f0']
-        });
         const server = await device.gatt.connect();
         const service = await server.getPrimaryService('8cdd366e-7eb4-442d-973f-61e2fd4b56f0');
         characteristic = await service.getCharacteristic('dc994613-74f5-4c4f-b671-5a8d297f737a');
@@ -47,15 +43,13 @@ document.getElementById('connect').addEventListener('click', async () => {
     }
 });
 
-// async function sendAvailableCommand() {
-//     try {
-//         const encoder = new TextEncoder();
-//         const data = encoder.encode('Available');
-//         await characteristic.writeValue(data);
-//     } catch (error) {
-//         console.error('Failed to send Available command', error);
-//     }
-// }
+document.getElementById('connect').addEventListener('click', async () => {
+    device = await navigator.bluetooth.requestDevice({
+        acceptAllDevices: true,
+        optionalServices: ['8cdd366e-7eb4-442d-973f-61e2fd4b56f0']
+    });
+    connectDevice();
+});
 
 function handleCharacteristicValueChanged(event) {
     const value = new TextDecoder().decode(event.target.value);
