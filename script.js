@@ -31,8 +31,13 @@ document.getElementById('connect').addEventListener('click', async () => {
         await notifyCharacteristic.startNotifications();
         notifyCharacteristic.addEventListener('characteristicvaluechanged', handleCharacteristicValueChanged);
 
-        await sendAvailableCommand();
-
+        // Ensure connection is stable before sending the "Available" command
+        if (device.gatt.connected) {
+            await characteristic.writeValue(new TextEncoder().encode('Available'));
+        } else {
+            console.error('Device is not connected');
+        }
+        
     } catch (error) {
         console.error('Connection failed', error);
         document.getElementById('status').textContent = 'Disconnected';
@@ -40,15 +45,15 @@ document.getElementById('connect').addEventListener('click', async () => {
     }
 });
 
-async function sendAvailableCommand() {
-    try {
-        const encoder = new TextEncoder();
-        const data = encoder.encode('Available');
-        await characteristic.writeValue(data);
-    } catch (error) {
-        console.error('Failed to send Available command', error);
-    }
-}
+// async function sendAvailableCommand() {
+//     try {
+//         const encoder = new TextEncoder();
+//         const data = encoder.encode('Available');
+//         await characteristic.writeValue(data);
+//     } catch (error) {
+//         console.error('Failed to send Available command', error);
+//     }
+// }
 
 function handleCharacteristicValueChanged(event) {
     const value = new TextDecoder().decode(event.target.value);
